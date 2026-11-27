@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matrimonio Padres — Mural de Fotos</title>
+  <title>Escanea el QR para subir tus fotos</title>
   <style>
     :root {
       --bg: #faf7f2;
@@ -12,7 +12,7 @@
       --muted: #6e665f;
       --accent: #8c6239;
       --accent-hover: #734f2d;
-      --border: #e6dfd5;
+      --border: #dfd6c9;
       --success-bg: #edf7ed;
       --success-text: #1e5620;
       --error-bg: #fdecea;
@@ -29,148 +29,139 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.5;
-      padding-bottom: 4rem;
-    }
-
-    header {
-      text-align: center;
-      padding: 2.2rem 1.2rem 1.2rem;
-      max-width: 780px;
-      margin: 0 auto;
-    }
-
-    header h1 {
-      font-size: clamp(1.7rem, 4vw, 2.5rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    header p {
-      color: var(--muted);
-      margin-top: 0.4rem;
-      font-size: 1rem;
-    }
-
-    .upload-section {
-      max-width: 640px;
-      margin: 1rem auto 2.5rem;
-      padding: 0 1rem;
-    }
-
-    .upload-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 1.4rem;
-      box-shadow: 0 8px 24px rgba(36, 33, 30, 0.05);
-    }
-
-    .file-drop {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
-      border: 2px dashed var(--border);
-      border-radius: 14px;
-      padding: 1.4rem 1rem;
+      padding: 1.5rem 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: clamp(1.5rem, 4.5vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .qr-box {
+      background: var(--card);
+      border: 3px solid var(--text);
+      border-radius: 16px;
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 8px 24px rgba(36, 33, 30, 0.06);
+    }
+
+    .qr-frame {
+      width: 210px;
+      height: 210px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .upload-area {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .pick-btn {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 2px dashed var(--accent);
+      border-radius: 12px;
+      background: #fdfbf8;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1rem;
       text-align: center;
       cursor: pointer;
-      background: #fdfbf8;
-      transition: border-color 0.2s, background 0.2s;
-      margin-bottom: 1rem;
+      transition: background 0.2s;
     }
 
-    .file-drop:hover {
-      border-color: var(--accent);
-      background: #faf5ee;
+    .pick-btn:hover {
+      background: #faf3e8;
     }
 
-    .file-drop strong {
-      font-size: 1.05rem;
-      color: var(--accent);
-    }
-
-    .file-drop span {
-      font-size: 0.88rem;
+    .pick-sub {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 400;
       color: var(--muted);
+      margin-top: 0.15rem;
     }
 
     input[type="file"] {
       display: none;
     }
 
-    .fields {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
-
-    @media (min-width: 560px) {
-      .fields {
-        grid-template-columns: 1fr 1.5fr;
-      }
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 0.8rem 0.95rem;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      font-size: 0.98rem;
-      background: #fff;
-      color: var(--text);
-    }
-
-    input[type="text"]:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-
     .previews {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
       gap: 0.5rem;
-      margin-bottom: 1rem;
     }
 
     .previews img {
       width: 100%;
       aspect-ratio: 1 / 1;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 9px;
       border: 1px solid var(--border);
     }
 
-    .btn-submit {
+    .btn-send {
       width: 100%;
-      padding: 0.95rem 1.2rem;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #fff;
-      background: var(--accent);
+      padding: 0.95rem 1rem;
       border: none;
       border-radius: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
       transition: background 0.2s, opacity 0.2s;
     }
 
-    .btn-submit:hover:not(:disabled) {
+    .btn-send:hover:not(:disabled) {
       background: var(--accent-hover);
     }
 
-    .btn-submit:disabled {
+    .btn-send:disabled {
       opacity: 0.6;
       cursor: not-allowed;
     }
 
     .status-msg {
-      margin-top: 0.9rem;
-      padding: 0.8rem 1rem;
-      border-radius: 11px;
-      font-size: 0.94rem;
+      padding: 0.8rem 0.95rem;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      text-align: center;
       display: none;
     }
 
@@ -188,220 +179,78 @@
       color: var(--error-text);
     }
 
-    .mural-section {
-      max-width: 1380px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    .mural-header {
+    .mural-link-btn {
       display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 0.5rem;
-      margin-bottom: 1.1rem;
-    }
-
-    .mural-header h2 {
-      font-size: 1.35rem;
-    }
-
-    .mural-meta {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .mural-grid {
-      column-count: 2;
-      column-gap: 0.9rem;
-    }
-
-    @media (min-width: 640px) {
-      .mural-grid {
-        column-count: 3;
-        column-gap: 1rem;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .mural-grid {
-        column-count: 4;
-        column-gap: 1.1rem;
-      }
-    }
-
-    .photo-card {
-      break-inside: avoid;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      margin-bottom: 1rem;
-      box-shadow: 0 4px 14px rgba(36, 33, 30, 0.04);
-      cursor: pointer;
-      transition: transform 0.18s ease;
-    }
-
-    .photo-card:hover {
-      transform: translateY(-2px);
-    }
-
-    .photo-card img {
-      display: block;
-      width: 100%;
-      height: auto;
-      background: #efeae2;
-    }
-
-    .photo-caption {
-      padding: 0.65rem 0.8rem;
-      font-size: 0.88rem;
-    }
-
-    .photo-guest {
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .photo-message {
-      color: var(--muted);
-      margin-top: 0.15rem;
-      word-break: break-word;
-    }
-
-    .empty-mural {
-      text-align: center;
-      color: var(--muted);
-      padding: 2.5rem 1rem;
-      background: var(--card);
-      border: 1px dashed var(--border);
-      border-radius: 16px;
-    }
-
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 13, 11, 0.88);
-      display: none;
       align-items: center;
       justify-content: center;
-      padding: 1rem;
-      z-index: 1000;
-    }
-
-    .lightbox.open {
-      display: flex;
-    }
-
-    .lightbox-box {
-      max-width: 920px;
-      max-height: 92vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.7rem;
-      color: #fff;
-      text-align: center;
-    }
-
-    .lightbox-box img {
-      max-width: 100%;
-      max-height: 76vh;
+      width: 100%;
+      padding: 1rem 1.2rem;
+      background: var(--card);
+      border: 3px solid var(--text);
       border-radius: 12px;
-      object-fit: contain;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(36, 33, 30, 0.05);
+      transition: transform 0.15s, background 0.2s;
     }
 
-    .lightbox-close {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: rgba(255, 255, 255, 0.16);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      width: 42px;
-      height: 42px;
-      font-size: 1.4rem;
-      cursor: pointer;
+    .mural-link-btn:hover {
+      background: #f4efe7;
+      transform: translateY(-1px);
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Matrimonio de Nuestros Padres</h1>
-    <p>Sube tus fotos favoritas y míralas aparecer en el mural en vivo</p>
-  </header>
+  <main class="container">
+    <h1>Escanea el QR para subir tus fotos</h1>
 
-  <section class="upload-section">
-    <form class="upload-card" id="uploadForm">
-      <label class="file-drop" for="photoInput">
-        <strong>Seleccionar o tomar fotos</strong>
-        <span>Toca aquí para elegir una o varias imágenes</span>
-      </label>
-      <input type="file" id="photoInput" accept="image/*" multiple />
-
-      <div class="previews" id="previews"></div>
-
-      <div class="fields">
-        <input type="text" id="guestName" placeholder="Tu nombre (opcional)" maxlength="80" />
-        <input type="text" id="guestMessage" placeholder="Dedicatoria o momento (opcional)" maxlength="180" />
+    <section class="qr-box">
+      <div class="qr-frame">
+        <img id="qrImage" src="" alt="Código QR para subir fotos" />
       </div>
 
-      <button type="submit" class="btn-submit" id="submitBtn">Subir al mural</button>
-      <div class="status-msg" id="statusMsg"></div>
-    </form>
-  </section>
+      <form class="upload-area" id="uploadForm">
+        <label class="pick-btn" for="photoInput">
+          Subir o sacar fotos
+          <span class="pick-sub">Elige una o varias desde tu galería o cámara</span>
+        </label>
+        <input type="file" id="photoInput" accept="image/*" multiple />
 
-  <section class="mural-section">
-    <div class="mural-header">
-      <h2>Mural de fotos</h2>
-      <div class="mural-meta" id="muralCount">Cargando fotos...</div>
-    </div>
-    <div class="mural-grid" id="muralGrid"></div>
-  </section>
+        <div class="previews" id="previews"></div>
 
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
-    <div class="lightbox-box">
-      <img id="lightboxImg" src="" alt="" />
-      <div id="lightboxCaption"></div>
-    </div>
-  </div>
+        <button type="submit" class="btn-send" id="sendBtn">Confirmar y subir</button>
+        <div class="status-msg" id="statusMsg"></div>
+      </form>
+    </section>
+
+    <a href="./mural.html" class="mural-link-btn">Ver mural</a>
+  </main>
 
   <script>
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw3jH7FuKPC18MacN5XHOKWraKWz00mgfCfliuoiYi6vgU-JCFe-Voee9zdll4QGfIWzg/exec";
-    const POLL_INTERVAL_MS = 20000;
+    const QR_TARGET_URL = window.location.href.split("#")[0];
 
-    const form = document.getElementById("uploadForm");
+    const qrImage = document.getElementById("qrImage");
+    const uploadForm = document.getElementById("uploadForm");
     const photoInput = document.getElementById("photoInput");
     const previewsEl = document.getElementById("previews");
-    const guestNameEl = document.getElementById("guestName");
-    const guestMessageEl = document.getElementById("guestMessage");
-    const submitBtn = document.getElementById("submitBtn");
+    const sendBtn = document.getElementById("sendBtn");
     const statusMsg = document.getElementById("statusMsg");
-    const muralGrid = document.getElementById("muralGrid");
-    const muralCount = document.getElementById("muralCount");
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightboxImg");
-    const lightboxCaption = document.getElementById("lightboxCaption");
-    const lightboxClose = document.getElementById("lightboxClose");
 
-    let knownIds = new Set();
+    qrImage.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=6&data=" +
+      encodeURIComponent(QR_TARGET_URL);
 
     function showStatus(type, text) {
       statusMsg.className = "status-msg show " + type;
       statusMsg.textContent = text;
     }
 
-    function escapeHtml(str) {
-      const div = document.createElement("div");
-      div.textContent = str || "";
-      return div.innerHTML;
-    }
-
     photoInput.addEventListener("change", () => {
       previewsEl.innerHTML = "";
+      statusMsg.className = "status-msg";
       const files = Array.from(photoInput.files || []);
       files.forEach((file) => {
         const reader = new FileReader();
@@ -446,85 +295,15 @@
       });
     }
 
-    function createPhotoCard(photo) {
-      const card = document.createElement("article");
-      card.className = "photo-card";
-      card.dataset.id = photo.id;
-
-      const guest = photo.guest || "Invitado";
-      const message = photo.message || "";
-
-      card.innerHTML = `
-        <img src="${escapeHtml(photo.url)}" alt="Foto de ${escapeHtml(guest)}" loading="lazy" />
-        <div class="photo-caption">
-          <div class="photo-guest">${escapeHtml(guest)}</div>
-          ${message ? `<div class="photo-message">${escapeHtml(message)}</div>` : ""}
-        </div>
-      `;
-
-      card.addEventListener("click", () => {
-        lightboxImg.src = photo.fullUrl || photo.url;
-        lightboxCaption.innerHTML = `<strong>${escapeHtml(guest)}</strong>${message ? `<br/><span>${escapeHtml(message)}</span>` : ""}`;
-        lightbox.classList.add("open");
-      });
-
-      return card;
-    }
-
-    function updateCountText() {
-      const total = knownIds.size;
-      muralCount.textContent = total === 1 ? "1 foto en el mural" : `${total} fotos en el mural`;
-    }
-
-    function prependNewPhotos(photos) {
-      if (!Array.isArray(photos) || photos.length === 0) {
-        if (knownIds.size === 0) {
-          muralGrid.innerHTML = `<div class="empty-mural">Aún no hay fotos en el mural. ¡Sé el primero en subir una!</div>`;
-          muralCount.textContent = "0 fotos en el mural";
-        }
-        return;
-      }
-
-      const emptyEl = muralGrid.querySelector(".empty-mural");
-      if (emptyEl) emptyEl.remove();
-
-      const newItems = photos.filter((p) => p.id && !knownIds.has(p.id));
-      for (let i = newItems.length - 1; i >= 0; i--) {
-        const photo = newItems[i];
-        knownIds.add(photo.id);
-        const card = createPhotoCard(photo);
-        muralGrid.prepend(card);
-      }
-
-      updateCountText();
-    }
-
-    async function loadPhotos() {
-      try {
-        const res = await fetch(WEB_APP_URL, { method: "GET" });
-        const data = await res.json();
-        if (data.status === "ok") {
-          prependNewPhotos(data.photos || []);
-        }
-      } catch (err) {
-        if (knownIds.size === 0) {
-          muralCount.textContent = "No se pudo cargar el mural por ahora";
-        }
-      }
-    }
-
-    form.addEventListener("submit", async (e) => {
+    uploadForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const files = Array.from(photoInput.files || []);
       if (files.length === 0) {
-        showStatus("err", "Primero selecciona al menos una foto.");
+        showStatus("err", "Primero selecciona o saca al menos una foto.");
         return;
       }
 
-      submitBtn.disabled = true;
-      const guestName = guestNameEl.value.trim();
-      const message = guestMessageEl.value.trim();
-
+      sendBtn.disabled = true;
       let uploadedCount = 0;
 
       for (let i = 0; i < files.length; i++) {
@@ -538,48 +317,37 @@
               fileName: compressed.fileName,
               mimeType: compressed.mimeType,
               fileData: compressed.fileData,
-              guestName,
-              message
+              guestName: "Invitado",
+              message: ""
             })
           });
 
           const result = await response.json();
           if (result.status === "ok") {
             uploadedCount++;
-            prependNewPhotos([{
-              id: result.id,
-              url: result.url,
-              fullUrl: result.url,
-              guest: result.guest || guestName || "Invitado",
-              message: result.message || message
-            }]);
           }
         } catch (err) {
           // Continúa con las demás fotos si una falla
         }
       }
 
-      submitBtn.disabled = false;
+      sendBtn.disabled = false;
 
       if (uploadedCount === files.length) {
-        showStatus("ok", `¡Fotos enviadas! (${uploadedCount} ${uploadedCount === 1 ? "foto" : "fotos"} en el mural).`);
+        showStatus(
+          "ok",
+          uploadedCount === 1
+            ? "¡Tu foto fue subida correctamente!"
+            : "¡Tus fotos fueron subidas correctamente!"
+        );
         photoInput.value = "";
         previewsEl.innerHTML = "";
-        guestMessageEl.value = "";
       } else if (uploadedCount > 0) {
-        showStatus("err", `Se subieron ${uploadedCount} de ${files.length} fotos. Revisa las restantes e inténtalo de nuevo.`);
+        showStatus("err", `Se subieron ${uploadedCount} de ${files.length} fotos. Inténtalo de nuevo con las restantes.`);
       } else {
         showStatus("err", "No se pudieron subir las fotos. Inténtalo nuevamente en unos segundos.");
       }
     });
-
-    lightboxClose.addEventListener("click", () => lightbox.classList.remove("open"));
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) lightbox.classList.remove("open");
-    });
-
-    loadPhotos();
-    setInterval(loadPhotos, POLL_INTERVAL_MS);
   </script>
 </body>
 </html>
